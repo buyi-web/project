@@ -17,10 +17,16 @@ const Game = (() => {
 
         init() {
             this[keyEvent]();
-            this.startGame();
         }
         
         startGame() {
+            if (this.timer) {
+                return;
+            }
+            if (this[isGameOver]()) {
+                //重新开始游戏                
+                window.location.reload();
+            }
             this.bird.startSwing();
             this.pipeProducer.startProduct();
             const duration = this.tick / 1000;

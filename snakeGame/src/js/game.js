@@ -1,15 +1,16 @@
 var game = new Game();
+var restart = document.getElementsByClassName('reStart')[0];
+var mask = document.getElementsByClassName('mask')[0]
 
-game.score = 0;
-game.snakeSpeed = INTERVAL;
-game.timer = null;
-game.pause = false;
-game.level = 1;
 
 game.init = function () {
+    game.score = 0;
+    game.snakeSpeed = INTERVAL;
+    game.timer = null;
+    game.pause = false;
+    game.level = 1;
     ground.init();
     snake.init();
-    game.start();
     this.createFood(ground)
 
     var control = tool.throttle(function (e) {
@@ -45,10 +46,11 @@ game.over = function () {
     clearInterval(this.timer);
     this.timer = null;
     alert('得分: ' + this.score);
+    mask.style.display = 'block';
 }
 
 game.changeSpeed = function (score) {
-    var newLevel = parseInt(score / 3) + 1; //每吃3个加一级
+    var newLevel = parseInt(score / 5) + 1; //每吃5个加一级
     if(this.level != newLevel) {
         this.snakeSpeed = this.snakeSpeed / newLevel; //速度随等级变化  有待改善
         this.level = newLevel
@@ -56,12 +58,11 @@ game.changeSpeed = function (score) {
         this.start(this.snakeSpeed)
         console.log(this.level, this.snakeSpeed);
     }
-    
 }
 
 
 //生成食物 
-game.createFood = function (ground) {
+game.createFood = function (ground, mustAdd) {
     var x, y;
     var flag = true;
     while (flag) {
@@ -82,10 +83,16 @@ game.createFood = function (ground) {
     }
     var rand = Math.random();
     var food = null;
-    if(rand > 0.7){
+    if(mustAdd){
         food = factory.create('Food', x, y, 'red');
-    } else {
-        food = factory.create('LevelAdd', x, y, 'blue')
+    }else{
+        if(rand > 0.9){
+            food = factory.create('LevelAdd', x, y, 'red');
+        } else if(rand > 0.2 && rand < 0.9){
+            food = factory.create('Food', x, y, 'blue')
+        } else {
+            food = factory.create('SnakeSub', x, y, 'white')
+        }
     }
   
     ground.removeSquare(x, y);
@@ -93,3 +100,10 @@ game.createFood = function (ground) {
 }
 
 game.init();
+
+restart.onclick = function(){
+    mask.style.display = 'none';
+    game.init()
+    game.start()
+}
+

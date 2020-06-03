@@ -1,0 +1,41 @@
+.tip{
+    position: absolute;
+    right: 350px;
+    top: 200px;
+    border: 1px solid #000;
+}
+.tip p{
+    font-size: 18px;
+}
+.mask{
+    width: 600px;
+    height: 600px;
+    background: rgba(0,0,0,0.5);
+    position: absolute;
+    left: 200px;
+    top: 100px;
+    padding-top: 200px;
+    box-sizing: border-box;
+    text-align: center;
+    z-index: 99;
+    /* display: none; */
+}
+.mask>h1{
+    color: #ff4500;
+    text-shadow: 3px 3px 0 #fff;
+    font-size: 40px;
+}
+.mask>button{
+    width: 150px;
+    line-height: 35px;
+    text-align: center;
+    color: white;
+    background: linear-gradient(#74ACCF,#007DDC);
+    border-radius: 20px;
+    border: none;
+    font-size: 20px;
+    position: absolute;
+    top: 320px;
+    left: 50%;
+    margin-left: -75px;
+}

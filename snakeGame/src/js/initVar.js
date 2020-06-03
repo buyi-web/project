@@ -47,4 +47,5 @@ var TOUCHMENU = {
     EAT: 'eat',
     DIE: 'die',
     ADD: 'add',
+    SUB: 'sub',
 }

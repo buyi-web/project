@@ -100,6 +100,25 @@ snake.strategies = {
         game.changeSpeed(game.score)
         this.move(snake, square, ground, true)
         game.createFood(ground)
+    },
+    sub: function(snake, square, ground){
+        var mustAdd = false;
+        game.score++;
+        game.changeSpeed(game.score);
+        
+        if(snake.tail.last.last == snake.head){
+            mustAdd = true;
+        }
+        this.move(snake, square, ground);
+       
+        var newFloor = factory.create('Floor', snake.tail.x, snake.tail.y, 'orange')
+        ground.removeSquare(snake.tail.x, snake.tail.y);
+        ground.appendSquare(newFloor);
+        //更新蛇尾
+        snake.tail.last.next = null;
+        snake.tail = snake.tail.last;
+
+        game.createFood(ground, mustAdd)
     }
 }
 //根据蛇的移动方向判断下一个方块发出消息

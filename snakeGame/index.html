@@ -5,8 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="./src/css/reset.css">
+    <link rel="stylesheet" href="./src/css/index.css">
 </head>
 <body>
+    <div class="tip">
+        <h1>规则说明</h1>
+        <p>控制方向:w,a,s,d,↑,←,↓,→</p>
+        <p>游戏暂停:回车/Enter</p>
+        <p>蓝色食物:吃掉蛇增加一格</p>
+        <p>白色食物:吃掉蛇减少一格</p>
+        <p>红色食物:吃掉蛇速度加一级</p>
+    </div>
+    <div class="mask">
+        <button class="reStart">重新开始</button>
+    </div>
     <script src="./src/js/tool/tool.js"></script>
     <script src="./src/js/initVar.js"></script>
     <script src="./src/js/SquareFactory.js"></script>

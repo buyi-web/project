@@ -49,6 +49,12 @@ SquareFactory.prototype.LevelAdd = function(x, y, color){
     this.init(obj, color, TOUCHMENU.ADD)
     return obj;
 }
+SquareFactory.prototype.SnakeSub = function(x, y, color){
+    var obj = new Food(x, y, SQUARE_WIDTH, SQUARE_WIDTH);
+    obj.update(x, y)
+    this.init(obj, color, TOUCHMENU.SUB)
+    return obj;
+}
 SquareFactory.prototype.SnakeHead = function(x, y, color){
     var obj = new SnakeHead(x, y, SQUARE_WIDTH, SQUARE_WIDTH);
     obj.update(x, y)

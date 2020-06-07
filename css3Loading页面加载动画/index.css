@@ -1,0 +1,143 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+html, body{
+    width: 100%;
+    height: 100%;
+}
+.wrapper{
+    width: 100%;
+    height: 100%;
+    background-color: #Db4d6d;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.text{
+    height: 100px;
+    color: #fff;
+    margin-left: 20px;
+}
+.monster{ 
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 110px;
+    height: 100px;
+    margin: 0 10px;
+    background-color: #e55A54;
+    border-radius: 20px;
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
+    animation: jump 0.8s infinite alternate;
+}
+.blue{
+    animation-delay: 0.4s;
+}
+.monster::before,
+.monster::after{
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    content: '';
+    display: block;
+    width: 20%;
+    height: 10px;
+    border-radius: 10px;
+    background-color: #fff;
+}
+.monster::before{
+    transform: translateX(-70%) rotate(45deg);
+}
+.monster::after{
+    transform: translateX(-30%) rotate(-45deg);
+}
+.blue.monster{
+    background-color: #0C4475;
+} 
+.monster div{
+    margin: 10px 0;
+}
+.monster .eye{
+    width: 40%;
+    height: 40%;
+    border-radius: 50%;
+    background-color: #fff;
+}
+.eyeBall{
+    width: 50%;
+    height: 50%;
+    border-radius: 50%;
+    background-color: #0C4475;
+    animation: eyeMove 1.6s infinite alternate; 
+}
+.blue .eyeBall,
+.blue .mouth{
+    background-color: #e55A54;
+}
+.mouth{
+    width: 32%;
+    height: 10px;
+    border-radius: 6px;
+    background-color: #fff;
+}
+
+/*loading page*/
+.loadingPage{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #0C4475;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    transition: opacity 0.5s 0.5s; /*执行玩动画后背景再消失*/
+}
+.loading{
+    margin-top: 80px;
+    width: 200px;
+    height: 8px;
+    border-radius: 8px;
+    background-color: #fff;
+    position: relative;
+    overflow: hidden;
+}
+.loading .bar{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 0%;
+    height: 100%;
+    border-radius: 8px;
+    background-color: #e55A54;
+}
+.loadingPage.complete .monster {
+    transition: all 0.5s;
+    transform: scale(0.01) rotateZ(360deg);
+}
+
+@keyframes jump{    
+    50%{
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        top: 0;   /*这里用transform 会把后面设置的transform覆盖*/
+    }
+    100%{
+        box-shadow: 0px 120px 50px rgba(0, 0, 0, 0.2);
+        top: -50px;
+    }
+}
+@keyframes eyeMove{
+    0%{
+        transform: translateX(0);
+    }
+    100%{
+        transform: translateX(100%);
+    }
+}
+

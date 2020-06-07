@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        #can {
+            position: absolute;
+            left: calc(50% - 250px);
+            top: 50%;
+            transform: translateY(-50%);
+            border: 1px solid #000;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas width="500" height="500" id="can"></canvas>
+    <script>
+        var canvas = document.getElementById('can');
+        var ctx = canvas.getContext('2d');
+        var width = canvas.width;
+        var height = canvas.height;
+        function renderTime() {
+            var date = new Date();
+            var today = date.toDateString();
+            var h = date.getHours();
+            var m = date.getMinutes();
+            var s = date.getSeconds();
+            var ms = date.getMilliseconds();
+            var rs = s + (ms / 1000);
+
+            //背景
+            var bg = ctx.createRadialGradient(width / 2, height / 2, 0, width / 2, height / 2, Math.sqrt(width * width + height * height) / 2);
+            bg.addColorStop(0, '#03303a');
+            bg.addColorStop(1, '#000');
+            ctx.fillStyle = bg;
+            ctx.fillRect(0, 0, width, height);
+
+            //时间轴
+            //小时 360 / 12 == 30
+            ctx.beginPath();
+            ctx.arc(width / 2, height / 2, width / 2 * 0.8, deg(270), deg(h * 30 - 90), false);//false默认值顺时针
+            ctx.lineWidth = 17;
+            ctx.shadowBlur = 15;
+            //shadowOffsetX,shadowOffsetY
+            ctx.shadowColor = 'aqua';
+            ctx.strokeStyle = '#00ffff';
+            ctx.stroke();
+
+            //分钟 360 / 60 == 6
+            ctx.beginPath();
+            ctx.arc(width / 2, height / 2, width / 2 * 0.8 - 30, deg(270), deg(m * 6 - 90), false);
+            ctx.lineWidth = 17;
+            ctx.shadowBlur = 15;
+            ctx.shadowColor = 'aqua';
+            ctx.strokeStyle = '#00ffff';
+            ctx.stroke();
+
+            //秒 
+            ctx.beginPath();
+            ctx.arc(width / 2, height / 2, width / 2 * 0.8 - 60, deg(270), deg(rs * 6 - 90), false);
+            ctx.lineWidth = 17;
+            ctx.shadowBlur = 15;
+            ctx.shadowColor = '00ffff';
+            ctx.strokeStyle = '#00ffff';
+            ctx.stroke();
+
+            //文字
+            ctx.font = '20px Helvetica';
+            ctx.fillStyle = '#00ffff';
+            //ctx.measureText(text).width 只有width一个属性 常用于计算水平居中
+            var measureW = ctx.measureText(today).width;
+            ctx.fillText(today, width / 2 - measureW / 2, height / 2 - 20);
+            h = ('0' + h).slice(-2);
+            m = ('0' + m).slice(-2);
+            s = ('0' + s).slice(-2);
+            ctx.fillText(h + ':' + m + ':' + s + ':' + ms, width / 2 - measureW / 2, height / 2 + 20);
+        }
+        function deg(deg) {
+            var unit = Math.PI / 180;
+            return deg * unit;
+        }
+        setInterval(renderTime, 40);
+    </script>
+</body>
+
+</html>
